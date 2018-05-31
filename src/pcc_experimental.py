@@ -21,9 +21,9 @@ def main():
 
     # paths to the sender and receiver executables, etc.
     cc_repo = path.join(project_root.DIR, 'third_party', 'pcc-experimental')
-    src_dir = path.join(cc_repo, 'src')
-    lib_dir = path.join(src_dir, 'core')
-    app_dir = path.join(src_dir, 'app')
+    src_dir = path.join('/home/njay2/PCC/restructure/src/')
+    lib_dir = path.join('/home/njay2/PCC/restructure/src/core/')
+    app_dir = path.join('/home/njay2/PCC/restructure/src/app/')
     send_src = path.join(app_dir, 'pccclient')
     recv_src = path.join(app_dir, 'pccserver')
 
@@ -45,7 +45,25 @@ def main():
 
     if args.option == 'sender':
         os.environ['LD_LIBRARY_PATH'] = path.join(lib_dir)
-        cmd = [send_src, 'send', args.ip, args.port]
+        ml_args = [
+        "--reset-target-rate=5.",
+        "-pyhelper=training_client",
+        "-pypath=/home/njay2/PCC/deep-learning/python/models/gym-rpc/",
+        "--deterministic",
+        "--pcc-utility-calc=lin",
+        "--gamma=0.98",
+        "--model-path=/home/njay2/PCC/restructure/sim/test_models/",
+        "--model-name=cur_model",
+        "--no-training",
+        "--log-utility-calc-lite",
+        "--pcc-rate-control=python",
+        "--no-reset"
+        ]
+        non_ml_args = [
+            "--pcc-utility-calc=ixp",
+            "--log-utiility-calc-lite"
+        ]
+        cmd = [send_src, 'send', args.ip, args.port] + ml_args
         check_call(cmd)
 
 
