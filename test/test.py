@@ -654,12 +654,15 @@ def run_tests(args):
                 if default_qdisc != test_qdisc:
                     set_default_qdisc(test_qdisc, ssh_cmd)
 
-                set_recv_sock_bufsizes(test_recv_sock_bufs, ssh_cmd)
+                if old_recv_bufsizes['local'] != test_recv_sock_bufs['local']:
+                    set_recv_sock_bufsizes(test_recv_sock_bufs, ssh_cmd)
 
                 Test(args, run_id, cc).run()
             finally:
-                set_default_qdisc(default_qdisc, ssh_cmd)
-                set_recv_sock_bufsizes(old_recv_bufsizes, ssh_cmd)
+                if default_qdisc != test_qdisc:
+                    set_default_qdisc(default_qdisc, ssh_cmd)
+                if old_recv_bufsizes['local'] != test_recv_sock_bufs['local']:
+                    set_recv_sock_bufsizes(old_recv_bufsizes, ssh_cmd)
 
     if not args.no_metadata:
         meta = vars(args).copy()

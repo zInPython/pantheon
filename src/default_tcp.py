@@ -22,7 +22,7 @@ def main():
         wait_and_kill_iperf(Popen(cmd))
 
     if args.option == 'sender':
-        cmd = ['iperf', '-c', args.ip, '-p', args.port, '-t', '75']
+        cmd = ['iperf', '-c', args.ip, '-p', args.port, '-t', '300']
         wait_and_kill_iperf(Popen(cmd))
 
 
