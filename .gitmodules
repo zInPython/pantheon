@@ -84,3 +84,7 @@
 	path = third_party/pcc-experimental
 	url = https://github.com/PCCproject/PCC-Uspace.git
 	ignore = dirty
+[submodule "third_party/pcc-rl"]
+	path = third_party/pcc-rl
+	url = https://github.com/zInPython/pcc_rl_test.git
+	ignore = dirty

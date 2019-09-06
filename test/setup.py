@@ -48,20 +48,23 @@ def setup(args):
 
     if cc_schemes is not None:
         for cc in cc_schemes:
-            cc_src = path.join(project_root.DIR, 'src', cc + '.py')
+            try:
+                cc_src = path.join(project_root.DIR, 'src', cc + '.py')
 
-            # install dependencies
-            if args.install_deps:
-                install_deps(cc_src)
-            else:
-                # persistent setup across reboots
-                if args.setup:
-                    check_call(['python', cc_src, 'setup'])
+                # install dependencies
+                if args.install_deps:
+                    install_deps(cc_src)
+                else:
+                    # persistent setup across reboots
+                    if args.setup:
+                        check_call(['python', cc_src, 'setup'])
 
-                # setup required every time after reboot
-                if call(['python', cc_src, 'setup_after_reboot']) != 0:
-                    sys.stderr.write('Warning: "%s.py setup_after_reboot"'
+                    # setup required every time after reboot
+                    if call(['python', cc_src, 'setup_after_reboot']) != 0:
+                        sys.stderr.write('Warning: "%s.py setup_after_reboot"'
                                      ' failed but continuing\n' % cc)
+            except Exception as e:
+                print('=========', e)
 
 
 def main():

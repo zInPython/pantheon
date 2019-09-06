@@ -88,6 +88,10 @@ schemes:
     friendly_name: PCC-Expr
     color: orange
     marker: '<'
+  pcc_rl:
+    friendly_name: PCC-RL
+    color: '#ADFF2F'
+    marker: '6'
 
 kernel_attrs:
   default_qdisc: pfifo_fast
